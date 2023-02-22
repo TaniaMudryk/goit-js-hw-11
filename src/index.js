@@ -57,12 +57,13 @@ async function onSubmit(event) {
     }
   }
 }
+
 async function onNextPage() {
   simpleLightbox.destroy();
   try {
     const result = await fetchImages(searchValue);
-    const totalPages = page * perPage;
-    if (result.totalHits <= totalPages) {
+    const totalPages = Math.ceil(result.totalHits / perPage);
+    if (result.hits <= totalPages) {
       buttonHidden();
       Notiflix.Report.info(
         'Wow',
